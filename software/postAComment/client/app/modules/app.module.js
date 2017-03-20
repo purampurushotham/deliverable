@@ -10,6 +10,7 @@
         'ngResource',
         'PAC.header',
         'PAC.home',
+        'PAC.view',
         'ngStorage'
     ]);
     console.log("in module")

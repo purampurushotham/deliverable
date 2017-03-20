@@ -1,7 +1,9 @@
 /**
  * Created by purushotham on 20/3/17.
  */
-var posts=require('../../models/postModel/postModel')
+var posts=require('../../models/postModel/postModel');
+var comments=require('../../models/CommentModel/commentModel')
+var likes=require('../../models/LikeModel/likeModel')
 var postsRoute= {
 
     viewPosts: function (req, res) {
@@ -43,13 +45,13 @@ var postsRoute= {
         console.log("********* in view posts**********88")
         var queryParam = req.query.q
         console.log(queryParam);
-       // var populateQuery = [{path:'comments'}, {path:'likes'}];
-        posts.findOne({_id : queryParam.id}).populate('comments').exec(function(err,response){
+        posts.findOne({_id : queryParam}).populate('comments likes').exec(function(err,response){
            if(err){
                res.send(err)
            }
             else{
-               console.log(response);
+               console.log(response.likes);
+               res.send({data : response,likes : response.likes,comments : response.comments})
            }
         });
     }

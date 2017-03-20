@@ -17,9 +17,9 @@
                 controllerAs : 'hm'
             })
             .state('view',{
-                url : "/view",
+                url : "/view/:id",
                 templateUrl  :"app/partials/view.html",
-                controller : 'view',
+                controller : 'viewCtrl',
                 controllerAs : 'vc'
             });
     }

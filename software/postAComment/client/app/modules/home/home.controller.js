@@ -28,10 +28,9 @@
                         console.log(response)
                         vm.userTable = response.data;
                         params.total(response.le);
-                        vm.id=[];
-                        console.log()
-                        for(var i=0;i<response.data.length;i++){
-                            vm.id.push(response.data[i].id)
+                        $localStorage.id = [];
+                        for (var i = 0; i < response.data.length; i++) {
+                            $localStorage.id.push(response.data[i].id)
                         }
                         var filterObj = params.filter(), filteredData = $filter('filter')(vm.userTable, filterObj);
                         var sortObj = params.sorting(), orderedData = $filter('orderBy')(filteredData, filterObj);
@@ -42,18 +41,5 @@
 
             });
         }
-        vm.checkpost = function(index){
-            console.log(vm.id)
-            var i=vm.id[index]
-            homeService.checkpost(i).then(function(response){
-                    console.log(response)
-                if(response){
-                    $state.go('view')
-                }
-            },
-            function (failure){});
-
-        }
-
     }
 })();
