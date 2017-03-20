@@ -1,0 +1,7 @@
+{
+  "db": {
+    "username": "username",
+    "password": "password",
+    "url": "mongodb://localhost/postAComment"
+  }
+}
