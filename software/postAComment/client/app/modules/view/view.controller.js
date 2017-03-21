@@ -9,7 +9,9 @@
     function viewCtrl($stateParams,$localStorage,postService,$filter){
         var vm=this;
         vm.i=0;
-        vm.user={}
+        vm.commentDate={
+            value : new Date()
+        };
         var hasLiked = false;
         vm.id=$localStorage.id[$stateParams.id];
         checkpost();
