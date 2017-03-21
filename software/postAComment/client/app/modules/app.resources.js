@@ -30,7 +30,20 @@
             'checkpost': {
                 method :"GET",
                 url : "/api/v1.0/checkPost"
+            },
+            'addComment' : {
+                method :"POST",
+                url : "/api/v1.0/addComment"
+            },
+            'addLikes' : {
+                method  : "POST",
+                url : "/api/v1.0/addLikes"
+            },
+            'removeLikes':{
+                method  : "DELETE",
+                url : "/api/v1.0/removeLikes"
             }
+            
         }
     }
 }());

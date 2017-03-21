@@ -11,8 +11,6 @@
         });
 function headerCtrl() {
     var vm=this;
-    vm.$onInit=function(){
-    console.log("in header ctyrl");
-    };
+    console.log(vm  );
 }
-})();
+}());

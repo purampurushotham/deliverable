@@ -8,10 +8,10 @@
     appConfig.$inject=['$stateProvider','$urlRouterProvider']
     function appConfig($stateProvider,$urlRouterProvider){
         console.log("in app.config")
-        $urlRouterProvider.otherwise('Home');
+        $urlRouterProvider.otherwise('home');
         $stateProvider
-            .state('Home',{
-                url : "/Home",
+            .state('home',{
+                url : "/home",
                 templateUrl  :"app/partials/home.html",
                 controller : 'homeCtrl',
                 controllerAs : 'hm'

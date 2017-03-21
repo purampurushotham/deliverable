@@ -5,100 +5,112 @@
     'use strict';
     angular.module('PAC.view')
         .controller("viewCtrl",viewCtrl);
-    viewCtrl.$inject=['$stateParams','$localStorage','homeService']
-    function viewCtrl($stateParams,$localStorage,homeService){
-        console.log("in view ctrl")
-        console.log($localStorage.id)
+    viewCtrl.$inject=['$stateParams','$localStorage','homeService','$filter'];
+    function viewCtrl($stateParams,$localStorage,homeService,$filter){
         var vm=this;
+        vm.i=0;
+        var hasLiked = false;
         vm.id=$localStorage.id[$stateParams.id];
-        console.log(vm.id)
-        homeService.checkpost(vm.id).then(
-            function (response){
-                console.log(response)
-                vm.comments=response.comments;
-                vm.likes=response.likes;
-                vm.post=response.data
-                commentsCtrl(vm.comments)
-            },
-            function (failed) {
-                console.log("failed")
-            }
-        );
-        function commentsCtrl(comments) {
-            console.log(comments)
-            vm.comm=comments;
-            vm.sam =vm.comm;
-            vm.commentsSize = 2;
-            vm.tempSize = vm.commentsSize;
-            vm.viewMore = function () {
-                if (vm.sam.length > vm.commentsSize) {
-                    vm.commentsSize = (vm.commentsSize) + ((vm.sam  .length - 1) / 2);
+        checkpost();
+        function checkpost() {
+            console.log("in checkPost")
+            homeService.checkpost(vm.id).then(
+                function (response) {
+                    console.log(response)
+                    vm.comments = response.comments;
+                    vm.likes = response.likes;
+                    vm.le=vm.likes.length;
+                    vm.post = response.data;
+                    vm.date=response.date;
+                    convertDates()
+                    comments(vm.comments)
+                },
+                function (failed) {
+                    console.log("failed")
                 }
-                else if (vm.sam.length < vm.commentsSize) {
-                    vm.commentsSize = vm.sam.length;
-                }
-            }
-            vm.hideButton = function () {
-                if (angular.equals(vm.commentsSize, vm.sam.length)) {
-                    return true;
-                }
-                else
-                    return false;
-            }
-
+            );
         }
-    }
-
-})();/**
- * Created by purushotham on 20/3/17.
- */
-(function(){
-    'use strict';
-    angular.module('PAC.view')
-        .controller("viewCtrl",viewCtrl);
-    viewCtrl.$inject=['$stateParams','$localStorage','homeService']
-    function viewCtrl($stateParams,$localStorage,homeService) {
-        console.log("in view ctrl")
-        console.log($localStorage.id)
-        var vm = this;
-        vm.id = $localStorage.id[$stateParams.id];
-        console.log(vm.id)
-        homeService.checkpost(vm.id).then(
-            function (response) {
-                console.log(response)
-                vm.comments = response.comments;
-                vm.likes = response.likes;
-                vm.post = response.data
-                commentsCtrl(vm.comments)
-            },
-            function (failed) {
-                console.log("failed")
-            }
-        );
-        function commentsCtrl(comments) {
-            console.log(comments)
+        function convertDates(){
+            vm.comments.forEach(function(eachDate){
+                var localDate=new Date(eachDate.commentedOn);
+                localDate=localDate.toLocaleDateString().replace(/\//g,'-');
+                eachDate.commentedOn =localDate;
+            });
+        }
+        function comments(comments) {
             vm.comm = comments;
             vm.sam = vm.comm;
             vm.commentsSize = 2;
             vm.tempSize = vm.commentsSize;
             vm.viewMore = function () {
-                console.log("in view more")
                 if (vm.sam.length > vm.commentsSize) {
-                    vm.commentsSize = (vm.commentsSize) + ((vm.sam.length - 1) / 2);
+                    vm.commentsSize = (vm.commentsSize) + 2;
                 }
                 else if (vm.sam.length < vm.commentsSize) {
                     vm.commentsSize = vm.sam.length;
                 }
-            }
+            };
             vm.hideButton = function () {
                 if (angular.equals(vm.commentsSize, vm.sam.length)) {
                     vm.commentsSize = 2;
                 }
             }
         }
-        function addComments(comment) {
-            homeService.addComment(comment)
+        vm.addComment=function(comment,commBy,commOn){
+            console.log("in add Comment")
+            var json = JSON.stringify(commOn);
+            var id=vm.post._id;
+            commOn=commOn.toISOString();
+            var query={}
+            query.id=vm.post._id;
+            query.comment=comment;
+            query.commentedBy=commBy
+            query.commentedon=commOn;
+            console.log(query.commentedon)
+            homeService.addComment(query).then(
+                function (response){
+                    checkpost();
+                },
+                function (failed) {
+                    console.log("failed")
+                }
+            );
         }
+        vm.addLikes=function () {
+            var query={};
+            query.id=vm.id;
+            query.likedBy="newsty"
+            var d=new Date();
+            query.likedOn=d.toISOString();
+            if (!hasLiked) {
+                hasLiked = true;
+                vm.liked = 'Unlike';
+                vm.likeCount += 1;
+                homeService.addLikes(query).then(
+                    function (response) {
+                        console.log(response);
+                        checkpost();
+                    },
+                    function (failed) {
+                        console.log("failed")
+                    }
+                );
+            }
+            else {
+                hasLiked = false;
+                vm.liked = 'Like';
+                vm.likeCount -= 1;
+                homeService.removeLikes(query).then(
+                    function (response) {
+                        console.log(response);
+                        checkpost();
+                    },
+                    function (failed) {
+                        console.log("failed")
+                    }
+                );
+            }
+        };
     }
 
 })();
