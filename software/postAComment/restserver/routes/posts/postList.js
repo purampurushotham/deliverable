@@ -10,7 +10,7 @@ var postsRoute= {
         console.log("********* in view posts**********88")
         var queryParam = (req.query && req.query.q) ? JSON.parse(req.query.q) : req.body.q;
         console.log(queryParam)
-        posts.find({}).skip(queryParam.page).limit(queryParam.page_size).exec(function (err, response) {
+        posts.find({}).sort(queryParam.sortingCriteria).skip(queryParam.page).limit(queryParam.page_size).exec(function (err, response) {
             if (err) {
                 res.send(err);
             }

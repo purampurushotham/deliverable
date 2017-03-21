@@ -9,8 +9,8 @@
         </div>
         <div class="col-md-12 panel-body">
             <table ng-table="hm.tableParams" class="table table-condensed table-bordered table-striped">
-                <tr ui-sref="view({id:$index})" ng-repeat="row in $data track by $index">
-                    <td data-title="'post_id'" filter="{type: 'number'}" sortable="'type'" >{{$index+1}}</td>
+                <tr  ui-sref="view({id:$index})" ng-repeat="row in $data track by $index">
+                    <td data-title="'post_id'"  >{{$index+1}}</td>
                     <td data-title="'Description'" filter="{text: 'text'}" sortable="'text'" ng-bind="row.text"></td>
                     <td data-title="'postedOn'" filter="{postedOn: 'date'}" sortable="'postedOn'" ng-bind="row.postedOn"></td>
                     <td data-title="'postedBy'" filter="{postedBy: 'text'}" sortable="'postedBy'" ng-bind="row.postedBy"></td>

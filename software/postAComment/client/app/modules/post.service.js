@@ -4,17 +4,17 @@
 (function() {
     'use strict'
     angular.module('PAC.home')
-        .factory('homeService', homeService);
-    homeService.$inject = ['api', '$q'];
-    function homeService(api, q) {
-        var setOfHomeServices = {
+        .factory('postService', postService);
+    postService.$inject = ['api', '$q'];
+    function postService(api, q) {
+        var setOfPostServices = {
             viewPosts : viewPosts,
             checkpost  : checkpost,
             addComment : addComment,
             addLikes : addLikes,
             removeLikes : removeLikes
         };
-        return setOfHomeServices;
+        return setOfPostServices;
         function viewPosts(q){
             var query=q;
             console.log("in view posts service")

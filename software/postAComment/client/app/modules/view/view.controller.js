@@ -5,16 +5,17 @@
     'use strict';
     angular.module('PAC.view')
         .controller("viewCtrl",viewCtrl);
-    viewCtrl.$inject=['$stateParams','$localStorage','homeService','$filter'];
-    function viewCtrl($stateParams,$localStorage,homeService,$filter){
+    viewCtrl.$inject=['$stateParams','$localStorage','postService','$filter'];
+    function viewCtrl($stateParams,$localStorage,postService,$filter){
         var vm=this;
         vm.i=0;
+        vm.user={}
         var hasLiked = false;
         vm.id=$localStorage.id[$stateParams.id];
         checkpost();
         function checkpost() {
             console.log("in checkPost")
-            homeService.checkpost(vm.id).then(
+            postService.checkpost(vm.id).then(
                 function (response) {
                     console.log(response)
                     vm.comments = response.comments;
@@ -67,7 +68,7 @@
             query.commentedBy=commBy
             query.commentedon=commOn;
             console.log(query.commentedon)
-            homeService.addComment(query).then(
+            postService.addComment(query).then(
                 function (response){
                     checkpost();
                 },
@@ -86,7 +87,7 @@
                 hasLiked = true;
                 vm.liked = 'Unlike';
                 vm.likeCount += 1;
-                homeService.addLikes(query).then(
+                postService.addLikes(query).then(
                     function (response) {
                         console.log(response);
                         checkpost();
@@ -100,7 +101,7 @@
                 hasLiked = false;
                 vm.liked = 'Like';
                 vm.likeCount -= 1;
-                homeService.removeLikes(query).then(
+                postService.removeLikes(query).then(
                     function (response) {
                         console.log(response);
                         checkpost();

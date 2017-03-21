@@ -3,8 +3,8 @@
     'use strict'
     angular.module('PAC.home')
         .controller('homeCtrl',homeCtrl);
-    homeCtrl.$inject=['$rootScope','NgTableParams','homeService','$filter','$localStorage','$state'];
-    function homeCtrl($rootScope,NgTableParams,homeService,$filter,$localStorage,$state) {
+    homeCtrl.$inject=['$rootScope','NgTableParams','postService','$filter','$localStorage','$state'];
+    function homeCtrl($rootScope,NgTableParams,postService,$filter,$localStorage,$state) {
         var vm = this;
         console.log("in home controler");
         loadTable();
@@ -20,10 +20,10 @@
                     var query = {
                         page_size: params.count() === -1 ? 0 : params.count(),
                         page: (params.page() - 1) * params.count(),
-                        id: vm.id,
                         sortingCriteria: params.sorting()
                     }
-                    return homeService.viewPosts(query).then(function (response) {
+                    console.log(query)
+                    return postService.viewPosts(query).then(function (response) {
                         /*//params.total(data.inlineCount); // recal. page nav controls*/
                         console.log(response)
                         vm.userTable = response.data;
