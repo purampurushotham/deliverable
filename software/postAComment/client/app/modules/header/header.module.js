@@ -4,5 +4,4 @@
 (function() {
     'use strict'
     angular.module('PAC.header', []);
-    console.log("in headerModue")
 }());

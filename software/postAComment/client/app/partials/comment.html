@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-8">
+        <h4 >Commments : <span class="glyphicon glyphicon-comment"></span> </h4>
+    </div>
+    <div class="col-md-3">
+        <button type="button" ng-disabled = cc.hideButton() class="btn btn-lg btn-primary" ng-click="cc.viewMore()">View More</button></div>
+</div>
+<div ng-repeat="i in cc.sam | limitTo : cc.commentsSize" class="well well-sm panel-body" >
+    <dl class="row">
+        <dt class="col-sm-3">comment :</dt>
+        <dd class="col-sm-9" ng-bind="i.text"></dd>
+        <dt class="col-sm-3">commentedBy :</dt>
+        <dd class="col-sm-9" ng-bind="i.commentedBy"></dd>
+        <dt class="col-sm-3">commented On :</dt>
+        <dd class="col-sm-9" ng-bind="i.commentedOn"></dd>
+    </dl>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <dl class="row dl-horizontal">
+            <dt >comment :</dt>
+            <dd ><textarea ng-model="cc.singleComment"></textarea></dd>
+            <dt >Commented By:</dt>
+            <dd ><input type = "text" ng-model="cc.cb"></dd>
+            <dt >Commented On:</dt>
+            <dd > <input type = "date"  placeholder="yyyy-MM-dd" ng-model="cc.commentDate.value"></dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <button type="button"  class="btn btn-lg btn-primary" ng-click="cc.addComment(cc.singleComment,cc.cb,cc.commentDate.value)">Comment</button>
+    </div>
+</div>

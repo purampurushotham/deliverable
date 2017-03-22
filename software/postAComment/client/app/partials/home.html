@@ -7,9 +7,10 @@
         <div class="panel-heading">
             <h3  class="panel-title text-center">POSTS</h3>
         </div>
-        <div class="col-md-12 panel-body">
+        <div class="col-md-12 panel-body" >
             <table ng-table="hm.tableParams" class="table table-condensed table-bordered table-striped">
-                <tr  ui-sref="view({id:$index})" ng-repeat="row in $data track by $index">
+                <p ng-show = "!hm.exists" class="alert-info">No records found </p>
+                <tr  ng-show ="hm.exists" ui-sref="view({id:$index})" ng-repeat="row in $data track by $index">
                     <td data-title="'post_id'"  >{{$index+1}}</td>
                     <td data-title="'Description'" filter="{text: 'text'}" sortable="'text'" ng-bind="row.text"></td>
                     <td data-title="'postedOn'" filter="{postedOn: 'date'}" sortable="'postedOn'" ng-bind="row.postedOn"></td>

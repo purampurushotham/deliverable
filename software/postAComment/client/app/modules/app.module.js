@@ -11,7 +11,8 @@
         'PAC.header',
         'PAC.home',
         'PAC.view',
-        'ngStorage'
+        'ngStorage',
+        'PAC.footer'
     ]);
     console.log("in module")
 }());

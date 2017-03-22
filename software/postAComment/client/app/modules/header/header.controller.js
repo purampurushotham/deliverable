@@ -11,6 +11,5 @@
         });
 function headerCtrl() {
     var vm=this;
-    console.log(vm  );
 }
 }());
