@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row ">
+        <div class="col-md-3 ">
+        </div>
+        <div class="col-md-6 panel panel-primary">
+            <h4 class="lead panel-heading text-center"   >
+                Post
+            </h4>
+            <dl class="dl-horizontal">
+                <dt>Description</dt>
+                <dd ng-bind="vc.post.text"></dd>
+                <dt>Posted By</dt>
+                <dd ng-bind="vc.post.postedBy"></dd>
+                <dt>Posted By</dt>
+                <dd ng-bind="vc.date"></dd>
+
+            </dl>
+            <div class="row">
+                <div class="col-md-8">
+                    <likes-component  likes="vc.likes" id ="vc.post._id" check="vc.checkpost()"></likes-component>
+                </div>
+            </div>
+            <comment-component  sam="vc.comments" id ="vc.post._id" check="vc.checkpost()"></comment-component>
+        </div>
+
+    </div>
+    <div class="col-md-2">
+    </div>
+</div>
