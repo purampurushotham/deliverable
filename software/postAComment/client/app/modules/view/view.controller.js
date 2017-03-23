@@ -81,7 +81,7 @@
                 postService.addComment(query).then(
                     function (response){
                         if(response.status =="ok")
-                        vm.check()
+                            vm.check()
                     },
                     function (failed) {
                     }
@@ -89,24 +89,25 @@
             }
         }
         //TODO: fix comment: What does the below two lines of code
-            vm.comm = vm.sam;
-            vm.sam = vm.comm;
-            vm.commentsSize = 2;
-            vm.tempSize = vm.commentsSize;
+        //display comments with initial size 2 
+        vm.comm = vm.sam;
+        vm.sam = vm.comm;
+        vm.commentsSize = 2;
+        vm.tempSize = vm.commentsSize;
 
-            vm.viewMore = function () {
-                if (vm.sam.length > vm.commentsSize) {
-                    vm.commentsSize = (vm.commentsSize) + 2;
-                }
-                else if (vm.sam.length < vm.commentsSize) {
-                    vm.commentsSize = vm.sam.length;
-                }
-            };
-            vm.hideButton = function () {
-                if (angular.equals(vm.commentsSize, vm.sam.length)) {
-                    vm.commentsSize = 2;
-                }
-            };
+        vm.viewMore = function () {
+            if (vm.sam.length > vm.commentsSize) {
+                vm.commentsSize = (vm.commentsSize) + 2;
+            }
+            else if (vm.sam.length < vm.commentsSize) {
+                vm.commentsSize = vm.sam.length;
+            }
+        };
+        vm.hideButton = function () {
+            if (angular.equals(vm.commentsSize, vm.sam.length)) {
+                vm.commentsSize = 2;
+            }
+        };
     }
     likesCtrl.$inject=['postService']
     function likesCtrl(postService){
