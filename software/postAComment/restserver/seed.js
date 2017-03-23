@@ -1,7 +1,7 @@
 var async = require('async');
 var mongoose =require('mongoose')
 var posts=require('./models/postModel/postModel')
-var comments=require('./models/CommentModel/commentModel')
+var comments=require('./models/commentModel/commentModel')
 var likes=require('./models/LikeModel/likeModel')
 var dateFormat=require('dateformat');
 var moment=require('moment')

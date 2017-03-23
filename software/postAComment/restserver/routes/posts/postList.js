@@ -3,10 +3,10 @@
  */
 //TODO: fix comment: Check the folder and model names those are inconsistent
 var posts=require('../../models/postModel/postModel');
-var comments=require('../../models/CommentModel/commentModel')
+var comments=require('../../models/commentModel/commentModel')
 //TODO: fix comment: Variable name should be Like
-//Reason: you are creating object to LikeModel object, so if you have variable as likes then the coding will be improper to see.
-var likes=require('../../models/LikeModel/likeModel')
+//Reason: you are creating object to LikeModel object, so if you have variable as Like then the coding will be improper to see.
+var Like=require('../../models/LikeModel/likeModel')
 var ObjectId = require('mongoose').Types.ObjectId;
 var SuccessResponse =require('../../models/successResponse/SuccessResonse');
 var ErrorResult =require('../../models/errorResult/ErrorResult');
@@ -51,7 +51,7 @@ var postsRoute= {
         var queryParam = req.query.q
         posts.findOne({_id : queryParam}).populate('comments likes').exec(function(err,response){
             if(err){
-               return res.json(new ErrorResult("failed",err,[{'msg' :'error' }]))
+                return res.json(new ErrorResult("failed",err,[{'msg' :'error' }]))
             }
             else {
                 //TODO: fix comment: Variable names should be proper
@@ -92,7 +92,7 @@ var postsRoute= {
                     else if(response != null) {
 
                         if(!response.comments.includes(comment._id))
-                        response.comments.push(comment._id)
+                            response.comments.push(comment._id)
                     }
                     response.save(function (err2,result) {
                         if(err2){
@@ -113,7 +113,7 @@ var postsRoute= {
         l.postId = queryParam.id;
         l.likedBy=queryParam.likedBy;
         l.likedOn = queryParam.likedOn;
-        var newLikes=likes(l);
+        var newLikes=Like(l);
         newLikes.save(function (err,result){
             if(err){
                 return res.json(new ErrorResult("failed",err,[{'msg' : 'likes not updated'}]))
@@ -149,12 +149,12 @@ var postsRoute= {
             }
             else if(response != null){
                 //TODO: fix comment: else should be started after } paranthesis. i.e., } else ---> [Update everywhere]
-                likes.findOne({postId : new ObjectId(queryParam.id),likedBy : queryParam.likedBy}).exec(function(err1,li){
+                Like.findOne({postId : new ObjectId(queryParam.id),likedBy : queryParam.likedBy}).exec(function(err1,li){
                     if(err1){
                         return res.json(new ErrorResult("failed",err1,[{'msg' : 'likes not found'}]))
                     }
                     else if(likes!=null) {
-                        likes.remove({_id : li.id}).exec(function(err1){
+                        Like.remove({_id : li.id}).exec(function(err1){
                             if(err1)
                                 res.send(err1)
                             else{
