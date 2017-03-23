@@ -1,8 +1,11 @@
 /**
  * Created by purushotham on 20/3/17.
  */
+//TODO: fix comment: Check the folder and model names those are inconsistent
 var posts=require('../../models/postModel/postModel');
 var comments=require('../../models/CommentModel/commentModel')
+//TODO: fix comment: Variable name should be Like
+//Reason: you are creating object to LikeModel object, so if you have variable as likes then the coding will be improper to see.
 var likes=require('../../models/LikeModel/likeModel')
 var ObjectId = require('mongoose').Types.ObjectId;
 var SuccessResponse =require('../../models/successResponse/SuccessResonse');
@@ -10,6 +13,8 @@ var ErrorResult =require('../../models/errorResult/ErrorResult');
 var postsRoute= {
     viewPosts: function (req, res) {
         var queryParam = (req.query && req.query.q) ? JSON.parse(req.query.q) : req.body.q;
+        //TODO: fix comment: Move this to any service js file
+        //You need to check for null condition for all of these and then write a generic logic to do the below logic
         posts.find({}).sort(queryParam.sortingCriteria).skip(queryParam.page).limit(queryParam.page_size).exec(function (err, response) {
             if (err) {
                 res.send(err);
@@ -49,9 +54,14 @@ var postsRoute= {
                return res.json(new ErrorResult("failed",err,[{'msg' :'error' }]))
             }
             else {
+                //TODO: fix comment: Variable names should be proper
+                //TODO: fix comment: Why is this reverse function? If it is to get the recent comments first, then you can get the elements sort by desc order
                 var a=response.comments.reverse();
+                //TODO: fix comment: Why you are creating date object and send back to response? You should save the postedOn value as "Date" object in database
+                // And while retrieving it'l be in date format itself, then in client side you can format it...
                 var localDate=new Date(response.postedOn);
                 localDate=localDate.toLocaleDateString().replace(/\//g,'-');
+                //TODO: fix comment: The below logic should go into util method
                 var post={}
                 post.po=response;
                 post.likes=response.likes;
@@ -63,6 +73,7 @@ var postsRoute= {
     },
     addComment : function (req,res) {
         var queryParam = (req.query && req.query.q) ? JSON.parse(req.query.q) : req.body.q;
+        //TODO: fix comment: There should be util method to populate the query params object(Just like you did below), and call that method here.
         var co={}
         co.postId=queryParam.id
         co.text=queryParam.comment;
@@ -97,6 +108,7 @@ var postsRoute= {
     },
     addLikes : function (req,res) {
         var queryParam = (req.query && req.query.q) ? JSON.parse(req.query.q) : req.body.q;
+        //TODO: fix comment: Proper variable names
         var l={};
         l.postId = queryParam.id;
         l.likedBy=queryParam.likedBy;
@@ -136,6 +148,7 @@ var postsRoute= {
                 return res.json(new ErrorResult("failed",err,[{'msg' : 'post not found'}]))
             }
             else if(response != null){
+                //TODO: fix comment: else should be started after } paranthesis. i.e., } else ---> [Update everywhere]
                 likes.findOne({postId : new ObjectId(queryParam.id),likedBy : queryParam.likedBy}).exec(function(err1,li){
                     if(err1){
                         return res.json(new ErrorResult("failed",err1,[{'msg' : 'likes not found'}]))

@@ -13,6 +13,8 @@
                 console.log("in getData")
                 var products = [];
                 var deffered = $q.defer();
+                //TODO: fix comment: You are not making use of app.resource.js file
+                //Update it here..
                 $http.get('/api/v1.0/posts').then(function mySuccess(response) {
                         deffered.resolve(response);
                 }).then(function myError(error) {

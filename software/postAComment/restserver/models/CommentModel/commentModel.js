@@ -25,5 +25,8 @@ var commentSchema=new Schema({
 },
     {collection : 'comments'}
 );
+//TODO: fix comment: Model name should be in Caps and it should be singular
+//var commentModel = mongoose.model('Comment',commentSchema);
+//Update in all other models too..
 var commentModel =mongoose.model('comments',commentSchema);
 module.exports=commentModel;

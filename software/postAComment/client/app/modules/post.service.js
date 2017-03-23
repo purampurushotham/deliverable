@@ -1,6 +1,7 @@
 /**
  * Created by purushotham on 20/3/17.
  */
+//TODO: fix comment: This should go into post folder, This should not be in home folder of modules
 (function() {
     'use strict'
     angular.module('PAC.home')
@@ -17,6 +18,8 @@
         return setOfPostServices;
         function viewPosts(q){
             var query=q;
+            //TODO: fix comment: Remove all console logs
+            //TODO: fix comment: You can reduce these line into single line
             console.log("in view posts service")
             return api.viewPosts({q : query}).$promise
         }

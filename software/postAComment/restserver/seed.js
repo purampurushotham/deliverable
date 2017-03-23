@@ -19,9 +19,15 @@ function insert(eachObject){
     var p=new posts();
     p.text=eachObject.text;
     p.postedBy=eachObject.postedBy;
+    //TODO: fix comment: Format should be used globally, by retrieving from constants.js file.
+    //So This format converter should go into util method and use global format from constants.js file
+    //Reason: Different countries will use different formats. So according to the country the format should be changed dynamically and globally..
     var date = moment(eachObject.postedOn.toString(), 'DD/MM/YYYY');
     var formatedDate = date.format('MM/DD/YYYY');
     var formatedIso = dateFormat(formatedDate, "isoDateTime");
+    //TODO: fix comment: No need of isoDateTime format conversion. Simply save date.
+    //Eg: p.postedOn = new Date(eachObject.postedOn)
+    //Update in all other places
     p.postedOn=formatedIso;
     p.comments=[];
     p.likes=[];

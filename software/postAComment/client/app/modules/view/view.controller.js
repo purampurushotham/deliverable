@@ -1,6 +1,8 @@
 /**
  * Created by purushotham on 20/3/17.
  */
+//TODO: fix comment: Messy code...You should not merge all components together into a single file
+//Each component should have separate file for it. File name should match with the component name
 (function(){
     'use strict';
     angular.module('PAC.view')
@@ -86,6 +88,7 @@
                 );
             }
         }
+        //TODO: fix comment: What does the below two lines of code
             vm.comm = vm.sam;
             vm.sam = vm.comm;
             vm.commentsSize = 2;
