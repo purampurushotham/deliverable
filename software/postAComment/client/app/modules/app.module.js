@@ -11,8 +11,11 @@
         'PAC.header',
         'PAC.home',
         'PAC.view',
+        'PAC.comments',
+        'PAC.likes',
         'ngStorage',
         'PAC.footer'
+
     ]);
     console.log("in module")
 }());
